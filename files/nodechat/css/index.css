@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+ul {
+	list-style: none;
+	padding: none;	
+	margin: 0;
+}
+
+.nick {
+	color: #a0a0a0;
+}
+
+#shoutboxHeader {
+	background-color: #0096c8;
+	border-radius: 5px;
+	box-sizing: border-box;
+	color: #fff;
+	font-size: 15px;
+	line-height: 1;
+	margin: 0 0 5px;
+	padding: 5px 12px 6px 10px;
+	position: relative;
+	text-shadow: -1px -1px 0 #037ead;
+}
