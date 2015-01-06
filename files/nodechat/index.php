@@ -66,8 +66,7 @@
 				<input type="submit" value="Send" />
 			</form>
 
-			<div id="errorjs" style="color:red;font-size:11px;"></div>
-			<div id="errorphp" style="color:red;font-size:11px;"></div>
+			<div id="error" style="color:red;font-size:11px;"></div>
 		</div>
 		
 		<script src="https://itunixcdn.appspot.com/files/jquery/2.0.3/jquery-2.0.3.js" ></script>
