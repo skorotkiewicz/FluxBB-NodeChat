@@ -70,8 +70,8 @@
 			<div id="errorphp" style="color:red;font-size:11px;"></div>
 		</div>
 		
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
-		<script src="js/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
+		<script src="https://itunixcdn.appspot.com/files/jquery/2.0.3/jquery-2.0.3.js" ></script>
+		<script src="https://itunixcdn.appspot.com/files/js/socket.io.js"></script>
 		<?php $sql = $db->query('SELECT token FROM `users` WHERE id = ' . $pun_user['id']); ?>
 		<?php foreach ($sql as $row) { $token = $row['token']; } ?>
 		<script>
@@ -95,6 +95,11 @@
 				var content = actualContent + newMsgContent;
 
 				$( "#messages" ).html( content );
+				$( '#shoutbox' ).scrollTop(100000);
+			});
+
+			socket.on( 'information', function( d ) {
+				$( "#error" ).html( d.info );
 				$( '#shoutbox' ).scrollTop(100000);
 			});
 		</script>

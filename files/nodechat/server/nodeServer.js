@@ -69,12 +69,14 @@ io.sockets.on( 'connection', function( socket ) {
     //get user id of sender
     message_userid   = clients[socket.id].user_id;
     message_name = clients[socket.id].user_username;
-      if (message_userid) {
+      if (message_userid && message_userid != '1') {
           //save the message to db
           save_message(message_userid, message_name, message_content.message, function(err, message_id) {
             //if there is a socket to send to
               io.sockets.emit('message', { name: message_name, message: message_content.message, id: message_userid });
           });
+      } else {
+          socket.emit('information', { info: 'please log in' });
       }
   });
 });
