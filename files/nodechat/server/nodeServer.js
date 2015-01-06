@@ -2,6 +2,7 @@ var socket  = require( 'socket.io' );
 var express = require( 'express' );
 var http    = require( 'http' );
 var mysql   = require( 'mysql' );
+var xss     = require('node-xss').clean;
 
 var app = express();
 var server = http.createServer( app );
@@ -72,9 +73,9 @@ io.sockets.on( 'connection', function( socket ) {
       if (message_userid && message_userid != '1') {
          if (message_content.message.length >= 1) {
 		  //save the message to db
-		  save_message(message_userid, message_name, message_content.message, function(err, message_id) {
+		  save_message(message_userid, xss(message_name), message_content.message, function(err, message_id) {
 		    //if there is a socket to send to
-		      io.sockets.emit('message', { name: message_name, message: message_content.message, id: message_userid });
+		      io.sockets.emit('message', { name: message_name, message: xss(message_content.message), id: message_userid });
 		  });
          } else {
             socket.emit('information', { info: 'enter your msg' });
