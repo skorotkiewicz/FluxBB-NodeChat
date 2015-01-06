@@ -73,7 +73,7 @@ io.sockets.on( 'connection', function( socket ) {
       if (message_userid && message_userid != '1') {
          if (message_content.message.length >= 1) {
 		  //save the message to db
-		  save_message(message_userid, xss(message_name), message_content.message, function(err, message_id) {
+		  save_message(message_userid, message_name, xss(message_content.message), function(err, message_id) {
 		    //if there is a socket to send to
 		      io.sockets.emit('message', { name: message_name, message: xss(message_content.message), id: message_userid });
 		  });
