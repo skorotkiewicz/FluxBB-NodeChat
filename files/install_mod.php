@@ -3,13 +3,10 @@
 
 // Some info about your mod.
 $mod_title      = 'NodeJS Shoutbox for FluxBB';
-$mod_version    = '0.0.1';
+$mod_version    = '0.0.2';
 $release_date   = '2014-12-27';
 $author         = 'modInfo';
 $author_email   = 'sebastian@korotkiewicz.eu';
-
-// Versions of FluxBB this mod was created for. A warning will be displayed, if versions do not match
-//$fluxbb_versions= array('1.5.3', '1.5.2', '1.5.1', '1.5.0', '1.5-beta', '1.4.9', '1.4.8', '1.4.7', '1.4.6', '1.4.5', '1.4.4', '1.4.3', '1.4.2', '1.4.10', '1.4.1', '1.4.0', '1.4-rc3', '1.4-rc2', '1.4-rc1', '1.4-beta2', '1.4-beta1');
 
 // Set this to false if you haven't implemented the restore function (see below)
 $mod_restore	= true;
@@ -59,6 +56,8 @@ function install()
 	$db->create_table('nodechat', $schema) or error('Unable to create nodechat table', __FILE__, __LINE__, $db->error());
 	$sql = 'ALTER TABLE '.$db->prefix."nodechat CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;";
 	$db->query($sql) or error('Unable to alter table '.$db->prefix.'nodechat.', __FILE__, __LINE__, $db->error());
+	$token = 'ALTER TABLE `users` ADD `token` VARCHAR(255) NOT NULL;';
+	$db->query($token) or error('Unable to alter table '.$db->prefix.'nodechat.', __FILE__, __LINE__, $db->error());
 
 }
 

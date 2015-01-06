@@ -47,7 +47,7 @@
 							<?php $query = $db->query('SELECT * FROM (SELECT * FROM nodechat ORDER BY id DESC LIMIT 40) t ORDER BY id ASC;'); ?>
 
 							<?php foreach($query as $row): ?>
-								<li><?php echo date('H:i', $row['data']); ?> | <a href="http://forum.itunix.eu/profile.php?id=<?php echo $row['userid']; ?>"><strong><?php echo $row['name']; ?></strong></a> : <?php echo $row['message']; ?></li>
+								<li><?php echo date('H:i', $row['data']); ?> | <a href="/profile.php?id=<?php echo $row['userid']; ?>"><strong><?php echo $row['name']; ?></strong></a> : <?php echo $row['message']; ?></li>
 							<?php endforeach; ?>
 						</ul>
 
@@ -71,8 +71,32 @@
 		</div>
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
-		<script src="js/bootstrap.js"></script>
 		<script src="js/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
-		<script src="js/nodeClient.js"></script>
+		<?php $sql = $db->query('SELECT token FROM `users` WHERE id = ' . $pun_user['id']); ?>
+		<?php foreach ($sql as $row) { $token = $row['token']; } ?>
+		<script>
+			var socket = io.connect('http://example.com:8080', {query : 'token=<?php echo $token; ?>'}); //change it
+			var date = new Date();
+
+			$( "#messageForm" ).submit( function() {
+				var msg = $( "#messageInput" ).val();
+				socket.emit( 'message', { message: msg } );
+				$('#messageInput').val("");
+				return false;
+			});
+
+			$('#shoutbox').scrollTop(100000);
+
+			socket.on( 'message', function( data ) {
+				var time=('0'  + date.getHours()).slice(-2)+':'+('0' + date.getMinutes()).slice(-2);
+
+				var actualContent = $( "#messages" ).html();
+				var newMsgContent = '<li>' + time + ' | <a href="/profile.php?id=' + data.id + '"><strong>' + data.name + '</strong></a> : ' + data.message + '</li>';
+				var content = actualContent + newMsgContent;
+
+				$( "#messages" ).html( content );
+				$( '#shoutbox' ).scrollTop(100000);
+			});
+		</script>
 	</body>
 </html>
