@@ -9,7 +9,7 @@ GitHub repository: https://github.com/modInfo/FluxBB-NodeChat
 Changelog:  
 
 * 2015-01-06 - v0.0.2  
-* mysql is now in the server-side node
+* mysql is now in the server-side node  
 
 * 2014-12-27 - v0.0.1  
 *  First working version without any security and additives, but works :)
